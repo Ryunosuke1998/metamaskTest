@@ -3,45 +3,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <%--<link rel="stylesheet" type="text/css" href="../CSS/main.css" />--%>
-    <%--<script type="text/javascript" src="../JS/Design/main.js"></script>--%>
-    <%--<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>--%>
     <title>NFT MARKET</title>
 </head>
 <body>
-    <header>
-        <ul>
-            <li><a href="#">ホーム</a></li>
-            <li><a href="#">見つける</a></li>
-            <li><a href="#">アカウント</a></li>
-            <li><a href="#">ウォレットを接続</a></li>
-        </ul>
-    </header>
-    <div style="display: flex;">
-        <div>
-            <span>
-                <input type="file" id="fileLoginImg" name="fileLoginImg" tabindex="1" accept=".gif, .jpg, .jpeg, .png" /></span>
-        </div>
-    </div>
-    <div>
-        <span>
-            <button type="button" id="btn_send" onclick="">送信</button></span>
-    </div>
-   
+    <button class="enableEthereumButton">Enable Ethereum</button>
+    <h2>Account: <span class="showAccount"></span></h2>
 </body>
-<script type="text/javascript">
-    //--------------------------------------------------------------------------
-    //metamask　コネクト
-    //--------------------------------------------------------------------------
-    const accounts;
-    const account;
-    window.onload = function () {
-        // ページ読み込み時に実行したい処理
-        if (typeof window.ethereum !== 'undefined') {
-            //MetaMaskインストール済み
-            accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-            account = accounts[0];
+    <script type="text/javascript">
+        //--------------------------------------------------------------------------
+        //metamask　コネクト
+        //--------------------------------------------------------------------------
+        const ethereumButton = document.querySelector('.enableEthereumButton');
+        const showAccount = document.querySelector('.showAccount');
+
+        ethereumButton.addEventListener('click', () => {
+            getAccount();
+        });
+
+        async function getAccount() {
+            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+            const account = accounts[0];
+            showAccount.innerHTML = account;
         }
-    }
-</script>
+    </script>
 </html>
