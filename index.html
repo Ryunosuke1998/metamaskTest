@@ -6,24 +6,53 @@
     <title>NFT MARKET</title>
 </head>
 <body>
-    <button class="enableEthereumButton">Enable Ethereum</button>
-    <h2>Account: <span class="showAccount"></span></h2>
+    <header>
+        <ul>
+            <li><a href="#">ホーム</a></li>
+            <li><a href="#">見つける</a></li>
+            <li><a href="#">アカウント</a></li>
+            <li><a href="#" class="enableEthereumButton" id="a_connect_wallet">ウォレットを接続</a></li>
+            <li><span class="showAccount"></span></li>
+        </ul>
+    </header>
+    <div style="display: flex;">
+        <div>
+            <span>
+                <input type="file" id="fileLoginImg" name="fileLoginImg" accept=".gif, .jpg, .jpeg, .png" />
+            </span>
+        </div>
+    </div>
+    <div>
+        <span>
+            <button type="button" id="btn_send" onclick="">送信</button>
+        </span>
+    </div>
 </body>
-    <script type="text/javascript">
-        //--------------------------------------------------------------------------
-        //metamask　コネクト
-        //--------------------------------------------------------------------------
-        const ethereumButton = document.querySelector('.enableEthereumButton');
-        const showAccount = document.querySelector('.showAccount');
+<script type="text/javascript">
+    //--------------------------------------------------------------------------
+    //metamask　コネクト
+    //--------------------------------------------------------------------------
+    const ethereumButton = document.querySelector('.enableEthereumButton');
+    const showAccount = document.querySelector('.showAccount');
+    const account; //アクティブアカウントのアドレス
+    ethereumButton.addEventListener('click', () => {
+        if (typeof window.ethereum == 'undefined') {
+            document.getElementById("a_connect_wallet").innerText = "ウォレットをインストールする"
+            let a_connect_wallet_url = document.getElementById('a_connect_wallet');
+            let url = 'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=ja';
 
-        ethereumButton.addEventListener('click', () => {
+            //href属性の値を書き換える
+            a_connect_wallet_url.setAttribute('href', url);
+
+        } else {
             getAccount();
-        });
+        };
+    });
 
-        async function getAccount() {
-            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-            const account = accounts[0];
-            showAccount.innerHTML = account;
-        }
-    </script>
+    async function getAccount() {
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        account = accounts[0];
+        showAccount.innerHTML = account;
+    }
+</script>
 </html>
