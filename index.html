@@ -27,27 +27,20 @@
         <span>
             <button type="button" id="btn_send" onclick="">送信</button></span>
     </div>
-    <%--↓コネクト↓--%>
-    <div id="warning"></div>
-
-    <label>
-        管理人へ送るEther（Ropsten）の量を入力:
-        <input type="text" id="amount" />
-    </label>
-    <button id="sendButton">送る</button>
-
-    <div id="account"></div>
-    <div id="response"></div>
+   
 </body>
 <script type="text/javascript">
     //--------------------------------------------------------------------------
     //metamask　コネクト
     //--------------------------------------------------------------------------
+    const accounts;
+    const account;
     window.onload = function () {
         // ページ読み込み時に実行したい処理
         if (typeof window.ethereum !== 'undefined') {
             //MetaMaskインストール済み
-            ethereum.request({ method: 'eth_requestAccounts' });
+            accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+            account = accounts[0];
         }
     }
 </script>
